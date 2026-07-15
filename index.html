@@ -29,7 +29,7 @@
                     <label>Username Pengguna</label>
                     <div class="input-icon-wrapper">
                         <i class="fa-solid fa-user"></i>
-                        <input type="text" id="authUsername" placeholder="Contoh: hauzatul_aina" required>
+                        <input type="text" id="authUsername" placeholder="Contoh: aina" required>
                     </div>
                 </div>
 
@@ -200,7 +200,7 @@
         let currentSelectedFile = null;
 
         function fillDemoAccount() {
-            document.getElementById('authUsername').value = "hauzatul_aina";
+            document.getElementById('authUsername').value = "aina";
             document.getElementById('authPassword').value = "bebas123";
             document.getElementById('authSystemToken').value = "UAS-RAHASIA-2026";
         }
@@ -254,10 +254,12 @@
             document.getElementById('sidebar-overlay').classList.toggle('open');
         }
 
-        // SISTEM ENKRIPSI AMAN BERBASIS BASE64 (MENCEGAH KERUSAKAN FILE)
+        // ==========================================================================
+        // SISTEM ENKRIPSI ABSOLUT (MENGGUNAKAN ENKODING BASE64 YANG SANGAT STABIL)
+        // ==========================================================================
         function encryptAndUpload() {
             const fileInput = document.getElementById('fileInput');
-            const secretKey = document.getElementById('secretKey').value;
+            const secretKey = document.getElementById('secretKey').value.trim();
             const uploadBtn = document.getElementById('uploadBtn');
             const statusDiv = document.getElementById('uploadStatus');
 
@@ -273,57 +275,63 @@
 
             const reader = new FileReader();
             reader.onload = async function(e) {
-                const rawData = e.target.result; // Data string Base64 murni dari file
+                const rawData = e.target.result; // Format DataURL (berisi Base64 murni berkas)
                 
-                // Enkripsi string Base64 dengan aman menggunakan AES
-                const encryptedData = CryptoJS.AES.encrypt(rawData, secretKey).toString();
-                const blob = new Blob([encryptedData], {type: "text/plain"});
-                
-                const encryptedFileName = Date.now() + "_" + file.name + ".enc";
-                statusDiv.innerHTML = "<i class='fa-solid fa-cloud-arrow-up'></i> Menstransfer bit biner ke Storage Cloud...";
+                try {
+                    // Enkripsi string Base64 murni dengan kunci sandi AES
+                    const encryptedData = CryptoJS.AES.encrypt(rawData, secretKey).toString();
+                    const blob = new Blob([encryptedData], {type: "text/plain"});
+                    
+                    const encryptedFileName = Date.now() + "_" + file.name + ".enc";
+                    statusDiv.innerHTML = "<i class='fa-solid fa-cloud-arrow-up'></i> Menstransfer bit biner ke Storage Cloud...";
 
-                const { error: storageError } = await sbClient.storage
-                    .from('web_keamanan')
-                    .upload(encryptedFileName, blob);
+                    const { error: storageError } = await sbClient.storage
+                        .from('web_keamanan')
+                        .upload(encryptedFileName, blob);
 
-                if (storageError) {
-                    alert("Storage Error: " + storageError.message);
-                    resetUploadUI();
-                    return;
-                }
+                    if (storageError) {
+                        alert("Storage Error: " + storageError.message);
+                        resetUploadUI();
+                        return;
+                    }
 
-                statusDiv.innerHTML = "<i class='fa-solid fa-database'></i> Mengunci metadata hak akses pengguna...";
-                const generatedToken = "TOK-" + Math.floor(100000 + Math.random() * 900000);
+                    statusDiv.innerHTML = "<i class='fa-solid fa-database'></i> Mengunci metadata hak akses pengguna...";
+                    const generatedToken = "TOK-" + Math.floor(100000 + Math.random() * 900000);
 
-                const { error: dbError } = await sbClient
-                    .from('file_metadata')
-                    .insert([{ 
-                        file_name: file.name, 
-                        storage_path: encryptedFileName, 
-                        access_token: generatedToken,
-                        username: loggedInUser 
-                    }]);
+                    const { error: dbError } = await sbClient
+                        .from('file_metadata')
+                        .insert([{ 
+                            file_name: file.name, 
+                            storage_path: encryptedFileName, 
+                            access_token: generatedToken,
+                            username: loggedInUser 
+                        }]);
 
-                if (dbError) {
-                    alert("Database Error: " + dbError.message);
-                } else {
-                    statusDiv.innerHTML = `<div class='alert-success-box'>
-                        <strong><i class='fa-solid fa-circle-check'></i> Proteksi Berhasil Terisolasi!</strong><br>
-                        Token Berkas Baru Anda: <code>${generatedToken}</code><br>
-                        <small>Hanya dapat diakses oleh akun aktif Anda.</small>
-                    </div>`;
-                    fileInput.value = '';
-                    document.getElementById('secretKey').value = '';
+                    if (dbError) {
+                        alert("Database Error: " + dbError.message);
+                    } else {
+                        statusDiv.innerHTML = `<div class='alert-success-box'>
+                            <strong><i class='fa-solid fa-circle-check'></i> Proteksi Berhasil Terisolasi!</strong><br>
+                            Token Berkas Baru Anda: <code>${generatedToken}</code><br>
+                            <small>Hanya dapat diakses oleh akun aktif Anda.</small>
+                        </div>`;
+                        fileInput.value = '';
+                        document.getElementById('secretKey').value = '';
+                    }
+                } catch (err) {
+                    alert("Gagal melakukan proses enkripsi: " + err.message);
                 }
                 uploadBtn.disabled = false;
             };
-            reader.readAsDataURL(file); // Konversi otomatis semua tipe data file ke Base64
+            reader.readAsDataURL(file); 
         }
 
-        // SISTEM DEKRIPSI AMAN BERBASIS BASE64 (FILE TIDAK AKAN CORRUPT)
+        // ==========================================================================
+        // SISTEM DEKRIPSI ABSOLUT (MEMUTUS REKAM JEJAK CACHE BROWSER)
+        // ==========================================================================
         function downloadAndDecrypt() {
             const inputToken = document.getElementById('inputAccessToken').value.trim();
-            const secretKey = document.getElementById('decryptSecretKey').value;
+            const secretKey = document.getElementById('decryptSecretKey').value.trim();
 
             if (!currentSelectedFile) {
                 alert("Pilih file terlebih dahulu di menu My Files!");
@@ -340,17 +348,27 @@
             }
 
             const { data: urlData } = sbClient.storage.from('web_keamanan').getPublicUrl(currentSelectedFile.storage_path);
+            const freshUrl = urlData.publicUrl + "?t=" + Date.now(); // Bypass cache secara paksa
 
-            fetch(urlData.publicUrl)
-                .then(res => res.text())
+            fetch(freshUrl)
+                .then(res => {
+                    if (!res.ok) throw new Error("Gagal mengunduh berkas dari cloud.");
+                    return res.text();
+                })
                 .then(ciphertext => {
                     try {
-                        const decrypted = CryptoJS.AES.decrypt(ciphertext, secretKey);
+                        const cleanCiphertext = ciphertext.trim();
+                        
+                        // Jalankan proses dekripsi menggunakan sandi teks murni
+                        const decrypted = CryptoJS.AES.decrypt(cleanCiphertext, secretKey);
                         const decryptedStr = decrypted.toString(CryptoJS.enc.Utf8);
                         
-                        if (!decryptedStr || !decryptedStr.includes("data:")) throw new Error();
+                        // VALIDASI MUTLAK: Jika sandi salah, string dekripsi tidak akan mengembalikan format Base64 valid
+                        if (!decryptedStr || decryptedStr.length === 0 || !decryptedStr.startsWith("data:")) {
+                            throw new Error("Password salah");
+                        }
 
-                        // Konversi kembali string Base64 yang valid ke Blob aslinya
+                        // Mengubah kembali string Base64 murni ke blob file asli tanpa merusak byte data
                         fetch(decryptedStr)
                             .then(res => res.blob())
                             .then(blob => {
@@ -362,11 +380,14 @@
                                 alert("Validasi Sukses & File Anda Berhasil Didekripsi!");
                                 document.getElementById('inputAccessToken').value = "";
                                 document.getElementById('decryptSecretKey').value = "";
+                            })
+                            .catch(() => {
+                                alert("Gagal merekonstruksi biner file asli.");
                             });
                     } catch (e) {
                         alert("Token Valid, namun Kunci AES Salah atau File Korup!");
                     }
-                }).catch(() => alert("Gagal mengambil berkas dari storage."));
+                }).catch((err) => alert(err.message));
         }
 
         async function fetchFileList() {
