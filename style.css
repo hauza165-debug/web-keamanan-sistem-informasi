@@ -4,7 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-    /* -- Brown scale (lebih dalam & bervariasi, tidak flat single-brown) -- */
     --brown-950: #2E1D16;
     --brown-800: #4A2F25;
     --brown-700: #5C4033;
@@ -12,23 +11,19 @@
     --brown-300: #A38C81;
     --brown-100: #E9D9D3;
 
-    /* -- Rose / pink (dusty rose, bukan pink template) -- */
     --rose-bg: #F4E4E1;
     --rose-bg-soft: #FBF3F1;
     --rose-accent: #C97B6D;
     --rose-accent-dark: #B15F51;
 
-    /* -- Gold-bronze, aksen premium tipis (dipakai sedikit, hanya untuk sentuhan) -- */
     --gold-foil: #B08A5A;
     --gold-foil-soft: rgba(176, 138, 90, 0.18);
 
-    /* -- Netral & status -- */
     --ivory: #FFFDFB;
     --ink-muted: #8A6F63;
     --success: #2A9D8F;
     --error: #C1443C;
 
-    /* -- Shadows (warna-brown, bukan hitam murni, biar terasa "warm") -- */
     --shadow-sm: 0 2px 8px rgba(74, 47, 37, 0.06);
     --shadow-md: 0 12px 32px rgba(74, 47, 37, 0.08);
     --shadow-lg: 0 30px 70px rgba(74, 47, 37, 0.14);
@@ -54,7 +49,6 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* -- Signature: polkadot bertekstur ganda (micro + halo), terasa seperti kain -- */
 body::before {
     content: '';
     position: fixed;
@@ -68,7 +62,6 @@ body::before {
     background-position: 0 0, 11px 11px;
 }
 
-/* -- vignette lembut agar tidak terasa flat -- */
 body::after {
     content: '';
     position: fixed;
@@ -114,7 +107,6 @@ h1, h2, h3, .login-header-zone h2 {
     position: relative;
 }
 
-/* aksen garis tipis di atas kartu, sentuhan "kop surat" premium */
 .login-card-box::before {
     content: '';
     position: absolute;
@@ -272,7 +264,7 @@ h1, h2, h3, .login-header-zone h2 {
 .login-footer-credits { text-align: center; font-size: 11px; color: var(--ink-muted); margin-top: 32px; font-weight: 500; opacity: 0.65; letter-spacing: 0.3px; }
 
 /* ==========================================================================
-   SIDEBAR — NAVIGASI MINIMALIS DENGAN INDIKATOR AKTIF BERGARIS GOLD
+   SIDEBAR — NAVIGASI MINIMALIS
    ========================================================================== */
 .workspace-wrapper { display: flex; min-height: 100vh; position: relative; z-index: 2; }
 
@@ -320,11 +312,7 @@ h1, h2, h3, .login-header-zone h2 {
 }
 
 .sidebar-menu li i { font-size: 15px; width: 20px; text-align: center; opacity: 0.85; }
-
-.sidebar-menu li:hover {
-    color: #ffffff;
-    background: rgba(255, 255, 255, 0.06);
-}
+.sidebar-menu li:hover { color: #ffffff; background: rgba(255, 255, 255, 0.06); }
 
 .sidebar-menu li.active {
     background: rgba(255, 255, 255, 0.1);
@@ -346,7 +334,7 @@ h1, h2, h3, .login-header-zone h2 {
 
 .logout-item { margin-top: auto; color: #E8B4B0 !important; background: rgba(255, 255, 255, 0.03) !important; }
 
-/* MAIN CONTENT */
+/* MAIN KONTEN UTAMA */
 .content-body { flex-grow: 1; margin-left: 264px; padding: 40px; min-width: 0; position: relative; z-index: 1; }
 
 .content-header {
@@ -375,7 +363,7 @@ h1, h2, h3, .login-header-zone h2 {
 }
 
 /* ==========================================================================
-   CARD PANELS
+   CARD PANELS & TABLES
    ========================================================================== */
 .card-box {
     background: var(--ivory);
@@ -411,23 +399,12 @@ h1, h2, h3, .login-header-zone h2 {
 .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
 .stat-card i { font-size: 26px; }
 .text-pink-accent { color: var(--rose-accent-dark); }
-.text-brown-base { color: var(--brown-700); }
+.text-glow { color: var(--gold-foil); }
 .stat-card h4 { font-family: 'Fraunces', serif; font-size: 25px; font-weight: 600; color: var(--brown-800); }
 .stat-card p { font-size: 11.5px; color: var(--ink-muted); font-weight: 600; margin-top: 18px; letter-spacing: 0.3px; }
 
-/* ==========================================================================
-   FORM: UPLOAD, PROFILE, TOKEN ACCESS
-   ========================================================================== */
 .form-group { margin-bottom: 24px; text-align: left; }
-
-.form-group label {
-    font-size: 11.5px;
-    font-weight: 700;
-    color: var(--brown-700);
-    margin-bottom: 10px;
-    display: block;
-    letter-spacing: 0.4px;
-}
+.form-group label { font-size: 11.5px; font-weight: 700; color: var(--brown-700); margin-bottom: 10px; display: block; letter-spacing: 0.4px; }
 
 .form-group input, .form-group select {
     width: 100%;
@@ -450,40 +427,14 @@ h1, h2, h3, .login-header-zone h2 {
     box-shadow: 0 0 0 4px rgba(201, 123, 109, 0.12);
 }
 
-.form-group input[type="file"] {
-    background: var(--ivory);
-    border: 1.5px dashed var(--brown-100);
-    padding: 24px;
-    cursor: pointer;
-    text-align-last: center;
-}
-.form-group input[type="file"]:hover {
-    background: #ffffff;
-    border-color: var(--gold-foil);
-}
+.form-group input[type="file"] { background: var(--ivory); border: 1.5px dashed var(--brown-100); padding: 24px; cursor: pointer; text-align-last: center; }
+.form-group input[type="file"]:hover { background: #ffffff; border-color: var(--gold-foil); }
 
-.profile-readonly-input {
-    background: var(--brown-100) !important;
-    color: var(--brown-700) !important;
-    border-color: var(--brown-100) !important;
-    font-weight: 600;
-    opacity: 0.75;
-}
-
+.profile-readonly-input { background: var(--brown-100) !important; color: var(--brown-700) !important; border-color: var(--brown-100) !important; font-weight: 600; opacity: 0.75; }
 .profile-select-input { cursor: pointer; text-align-last: center; }
 
-/* ==========================================================================
-   TABEL — FLUID ROW SYSTEM
-   ========================================================================== */
 .table-responsive { width: 100%; overflow-x: auto; border: none; }
-
-.modern-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    font-size: 14px;
-    background: transparent;
-}
+.modern-table { width: 100%; border-collapse: separate; border-spacing: 0 10px; font-size: 14px; background: transparent; }
 
 .modern-table th {
     background: transparent;
@@ -509,14 +460,10 @@ h1, h2, h3, .login-header-zone h2 {
 
 .modern-table td:first-child { border-left: 1px solid var(--brown-100); border-radius: 12px 0 0 12px; }
 .modern-table td:last-child { border-right: 1px solid var(--brown-100); border-radius: 0 12px 12px 0; }
-
-.modern-table tr:hover td {
-    background: var(--rose-bg-soft);
-    border-color: var(--rose-accent);
-}
+.modern-table tr:hover td { background: var(--rose-bg-soft); border-color: var(--rose-accent); }
 
 /* ==========================================================================
-   BUTTONS
+   BUTTONS & ALERTS
    ========================================================================== */
 .btn-action {
     background: linear-gradient(135deg, var(--brown-700), var(--brown-800));
@@ -549,15 +496,9 @@ h1, h2, h3, .login-header-zone h2 {
 .badge-status { background: rgba(42, 157, 143, 0.1); color: var(--success); font-weight: 700; padding: 6px 14px; border-radius: 50px; border: 1px solid rgba(42, 157, 143, 0.22); font-size: 11px; }
 .alert-success-box { color: var(--success); padding: 14px; background: #E8F5E9; border: 1px solid var(--success); border-radius: 12px; margin-top: 12px; font-size: 13px; text-align: center; }
 
-/* focus visibility untuk aksesibilitas */
-button:focus-visible, input:focus-visible, select:focus-visible, li:focus-visible {
-    outline: 2px solid var(--rose-accent);
-    outline-offset: 2px;
-}
+button:focus-visible, input:focus-visible, select:focus-visible, li:focus-visible { outline: 2px solid var(--rose-accent); outline-offset: 2px; }
 
-@media (prefers-reduced-motion: reduce) {
-    * { transition: none !important; animation: none !important; }
-}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 
 /* ==========================================================================
    RESPONSIVE MOBILE
