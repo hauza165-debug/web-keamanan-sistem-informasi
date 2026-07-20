@@ -1,33 +1,33 @@
 /* ==========================================================================
-   RESET & DESIGN TOKENS — QUIET LUXURY, COKLAT × DUSTY ROSE
+   RESET & DESIGN TOKENS — OLIVE STONE × VINTAGE PINK
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --brown-950: #2E1D16;
-    --brown-800: #4A2F25;
-    --brown-700: #5C4033;
-    --brown-500: #7A5B47;
-    --brown-300: #A38C81;
-    --brown-100: #E9D9D3;
+    --brown-950: #23241A;
+    --brown-800: #363824;
+    --brown-700: #484A36;
+    --brown-500: #6E7154;
+    --brown-300: #9B9D82;
+    --brown-100: #E4E4D3;
 
-    --rose-bg: #F4E4E1;
-    --rose-bg-soft: #FBF3F1;
-    --rose-accent: #C97B6D;
-    --rose-accent-dark: #B15F51;
+    --rose-bg: #FEC4D1;
+    --rose-bg-soft: #FFE0E7;
+    --rose-accent: #F0899F;
+    --rose-accent-dark: #DD6683;
 
-    --gold-foil: #B08A5A;
-    --gold-foil-soft: rgba(176, 138, 90, 0.18);
+    --gold-foil: #C9A66B;
+    --gold-foil-soft: rgba(201, 166, 107, 0.2);
 
-    --ivory: #FFFDFB;
-    --ink-muted: #8A6F63;
+    --ivory: #FFFDF9;
+    --ink-muted: #7C7E5F;
     --success: #2A9D8F;
     --error: #C1443C;
 
-    --shadow-sm: 0 2px 8px rgba(74, 47, 37, 0.06);
-    --shadow-md: 0 12px 32px rgba(74, 47, 37, 0.08);
-    --shadow-lg: 0 30px 70px rgba(74, 47, 37, 0.14);
-    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    --shadow-sm: 0 2px 8px rgba(72, 74, 54, 0.08);
+    --shadow-md: 0 12px 32px rgba(72, 74, 54, 0.10);
+    --shadow-lg: 0 30px 70px rgba(72, 74, 54, 0.18);
+    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 * {
@@ -56,7 +56,7 @@ body::before {
     pointer-events: none;
     z-index: 0;
     background-image:
-        radial-gradient(rgba(74, 47, 37, 0.06) 1px, transparent 1.4px),
+        radial-gradient(rgba(72, 74, 54, 0.07) 1px, transparent 1.4px),
         radial-gradient(var(--gold-foil-soft) 1.6px, transparent 1.6px);
     background-size: 22px 22px, 66px 66px;
     background-position: 0 0, 11px 11px;
@@ -68,7 +68,7 @@ body::after {
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    background: radial-gradient(ellipse at top, rgba(255,255,255,0.35), transparent 55%);
+    background: radial-gradient(ellipse at top, rgba(255,255,255,0.4), transparent 55%);
 }
 
 h1, h2, h3, .login-header-zone h2 {
@@ -129,11 +129,11 @@ h1, h2, h3, .login-header-zone h2 {
 .neon-star-logo {
     font-size: 36px;
     color: var(--brown-700);
-    filter: drop-shadow(0 2px 6px rgba(92, 64, 51, 0.15));
+    filter: drop-shadow(0 2px 6px rgba(72, 74, 54, 0.18));
 }
 
 .cyber-badge {
-    background: var(--gold-foil-soft);
+    background: var(--rose-bg-soft);
     color: var(--brown-800);
     font-size: 10.5px;
     font-weight: 700;
@@ -141,7 +141,7 @@ h1, h2, h3, .login-header-zone h2 {
     border-radius: 50px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    border: 1px solid rgba(176, 138, 90, 0.25);
+    border: 1px solid rgba(240, 137, 159, 0.3);
 }
 
 .login-header-zone h2 {
@@ -201,7 +201,7 @@ h1, h2, h3, .login-header-zone h2 {
     outline: none;
     border-color: var(--rose-accent);
     background: var(--ivory);
-    box-shadow: 0 0 0 4px rgba(201, 123, 109, 0.14);
+    box-shadow: 0 0 0 4px rgba(240, 137, 159, 0.18);
 }
 
 .btn-login-trigger {
@@ -224,13 +224,13 @@ h1, h2, h3, .login-header-zone h2 {
 .btn-login-trigger:hover {
     background: linear-gradient(135deg, var(--brown-800), var(--brown-950));
     transform: translateY(-2px);
-    box-shadow: 0 16px 36px rgba(74, 47, 37, 0.22);
+    box-shadow: 0 16px 36px rgba(72, 74, 54, 0.26);
 }
 
 .btn-login-trigger:active { transform: translateY(0); }
 
 .token-helper-container { margin-top: 24px; text-align: center; }
-.token-helper-btn { font-size: 12px; font-weight: 600; color: var(--rose-accent-dark); cursor: pointer; opacity: 0.85; transition: opacity 0.2s; }
+.token-helper-btn { font-size: 12px; font-weight: 600; color: var(--rose-accent-dark); cursor: pointer; opacity: 0.9; transition: opacity 0.2s; }
 .token-helper-btn:hover { opacity: 1; text-decoration: underline; }
 
 .token-display-box {
@@ -261,7 +261,7 @@ h1, h2, h3, .login-header-zone h2 {
 .btn-copy-token:hover { background: var(--brown-800); }
 
 .error-alert-label { color: var(--error); font-size: 13px; font-weight: 700; margin-top: 12px; text-align: center; display: none; }
-.login-footer-credits { text-align: center; font-size: 11px; color: var(--ink-muted); margin-top: 32px; font-weight: 500; opacity: 0.65; letter-spacing: 0.3px; }
+.login-footer-credits { text-align: center; font-size: 11px; color: var(--ink-muted); margin-top: 32px; font-weight: 500; opacity: 0.7; letter-spacing: 0.3px; }
 
 /* ==========================================================================
    SIDEBAR — NAVIGASI MINIMALIS
@@ -276,7 +276,7 @@ h1, h2, h3, .login-header-zone h2 {
     position: fixed;
     top: 0; bottom: 0; left: 0;
     z-index: 999;
-    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.12);
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.15);
 }
 
 .sidebar-brand {
@@ -306,7 +306,7 @@ h1, h2, h3, .login-header-zone h2 {
     gap: 14px;
     font-weight: 500;
     font-size: 13.5px;
-    color: rgba(233, 217, 211, 0.75);
+    color: rgba(254, 196, 209, 0.78);
     transition: all 0.2s ease;
     position: relative;
 }
@@ -332,7 +332,7 @@ h1, h2, h3, .login-header-zone h2 {
     background: linear-gradient(180deg, var(--rose-accent), var(--gold-foil));
 }
 
-.logout-item { margin-top: auto; color: #E8B4B0 !important; background: rgba(255, 255, 255, 0.03) !important; }
+.logout-item { margin-top: auto; color: #F5AFC0 !important; background: rgba(255, 255, 255, 0.03) !important; }
 
 /* MAIN KONTEN UTAMA */
 .content-body { flex-grow: 1; margin-left: 264px; padding: 40px; min-width: 0; position: relative; z-index: 1; }
@@ -346,7 +346,7 @@ h1, h2, h3, .login-header-zone h2 {
     justify-content: space-between;
     margin-bottom: 32px;
     box-shadow: var(--shadow-sm);
-    border: 1px solid rgba(233, 217, 211, 0.5);
+    border: 1px solid rgba(254, 196, 209, 0.5);
 }
 
 .hamburger-btn { background: none; border: none; color: var(--brown-700); font-size: 20px; cursor: pointer; display: none; }
@@ -371,7 +371,7 @@ h1, h2, h3, .login-header-zone h2 {
     padding: 36px;
     margin-bottom: 30px;
     box-shadow: var(--shadow-md);
-    border: 1px solid rgba(233, 217, 211, 0.45);
+    border: 1px solid rgba(254, 196, 209, 0.45);
 }
 
 .card-box h3 {
@@ -424,7 +424,7 @@ h1, h2, h3, .login-header-zone h2 {
     outline: none;
     border-color: var(--rose-accent);
     background: var(--ivory);
-    box-shadow: 0 0 0 4px rgba(201, 123, 109, 0.12);
+    box-shadow: 0 0 0 4px rgba(240, 137, 159, 0.16);
 }
 
 .form-group input[type="file"] { background: var(--ivory); border: 1.5px dashed var(--brown-100); padding: 24px; cursor: pointer; text-align-last: center; }
@@ -492,7 +492,7 @@ h1, h2, h3, .login-header-zone h2 {
 }
 .btn-copy:hover { background: var(--brown-700); color: #ffffff; }
 
-.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(74, 47, 37, 0.15); z-index: 998; backdrop-filter: blur(4px); }
+.sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(72, 74, 54, 0.18); z-index: 998; backdrop-filter: blur(4px); }
 .badge-status { background: rgba(42, 157, 143, 0.1); color: var(--success); font-weight: 700; padding: 6px 14px; border-radius: 50px; border: 1px solid rgba(42, 157, 143, 0.22); font-size: 11px; }
 .alert-success-box { color: var(--success); padding: 14px; background: #E8F5E9; border: 1px solid var(--success); border-radius: 12px; margin-top: 12px; font-size: 13px; text-align: center; }
 
