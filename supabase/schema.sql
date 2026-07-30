@@ -29,3 +29,17 @@ CREATE TABLE public.keamanan_informasi (
 -- 3. MENGAKTIFKAN ROW LEVEL SECURITY (RLS)
 ALTER TABLE public.file_metadata ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.keamanan_informasi ENABLE ROW LEVEL SECURITY;
+
+-- ==========================================
+-- 4. KONFIGURASI SUPABASE STORAGE BUCKET
+-- ==========================================
+
+-- Membuat Storage Bucket khusus untuk menyimpan berkas terenkripsi/keamanan
+INSERT INTO storage.buckets (id, name, public) 
+VALUES ('cyber-files', 'cyber-files', true)
+ON CONFLICT (id) DO NOTHING;
+
+-- Kebijakan Akses (Storage Policy) - Izinkan Upload & Download
+CREATE POLICY "Public Storage Access" 
+ON storage.objects FOR ALL 
+USING (bucket_id = 'cyber-files');
